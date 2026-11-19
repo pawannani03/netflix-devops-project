@@ -12,8 +12,8 @@ RUN pip install --no-cache-dir -r req.txt
 
 # Copy application files
 COPY app.py .
-COPY templates/ ./templates/
-COPY static/ ./static/
+COPY ["Frontend – templates/", "./templates/"]
+COPY ["CSS – static/", "./static/"]
 
 # Create a non-root user
 RUN useradd --create-home appuser && \
