@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Netflix Clone</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">NETFLIX</div>
+
+    <form action="/" method="GET" class="search-form">
+        <input
+            type="text"
+            name="search"
+            placeholder="Search movies..."
+            value="{{ search_query }}"
+        >
+        <input type="hidden" name="category"
+               value="{{ selected_category }}">
+        <button type="submit">Search</button>
+    </form>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Unlimited Movies, TV Shows and More.</h1>
+
+        <p>
+            Watch your favourite movies and discover
+            amazing entertainment.
+        </p>
+
+        <a href="#movies" class="watch-btn">Explore Movies</a>
+    </div>
+</section>
+
+<section class="movie-section" id="movies">
+
+    <h2>Explore Movies & TV Shows</h2>
+
+    <div class="categories">
+        {% for category in categories %}
+            <a href="/?category={{ category }}"
+               class="{% if selected_category == category %}active{% endif %}">
+                {{ category }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="movie-container">
+
+        {% for movie in movies %}
+
+        <div class="movie-card">
+
+            <img src="{{ movie.poster }}"
+                 alt="{{ movie.title }}"
+                 loading="lazy">
+
+            <div class="movie-info">
+
+                <h3>{{ movie.title }}</h3>
+
+                <p>{{ movie.description }}</p>
+
+                <div class="movie-details">
+                    <span>{{ movie.year }}</span>
+                    <span>⭐ {{ movie.rating }}</span>
+                </div>
+
+                <span class="category">
+                    {{ movie.category }}
+                </span>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <p class="no-results">
+            No movies found. Try another search.
+        </p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<footer>
+    <p>Netflix-style Demo Application | Built with Python Flask & Docker</p>
+</footer>
+
+</body>
+</html>
